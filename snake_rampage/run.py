@@ -31,6 +31,7 @@ current_dir = "RIGHT"
 clock = pygame.time.Clock()
 
 while not gameExit:
+
 	for event in pygame.event.get():
 
 		#exit game if esc pressed
@@ -72,13 +73,21 @@ while not gameExit:
 		pos_y += lead_y_change 
 	else:
 		pos_y += 0
-	#print(event)
+
+
+	if pos_x > 790 or pos_x < 10 or pos_y > 590 or pos_y < 10:
+		gameExit = True
+
 	gameDisplay.fill(ground)
 
 	#draw snake
 	snake = Snake(gameDisplay, darkgreen, pos_x, pos_y)
 
-
+	#draw walls
+	pygame.draw.rect(gameDisplay, red, [0, 0, 10, 600])
+	pygame.draw.rect(gameDisplay, red, [0, 0, 800, 10])
+	pygame.draw.rect(gameDisplay, red, [790, 0, 10, 600])
+	pygame.draw.rect(gameDisplay, red, [0, 590, 800, 10])
 	pygame.display.update()
 
 	clock.tick(60)

@@ -1,4 +1,5 @@
 import sys, pygame
+
 class Snake(object):
 
 	size_x = 12
@@ -6,8 +7,6 @@ class Snake(object):
 	eyes = (255, 193, 37)
 	eyes_size = 5
 	nose_size = 7
-	orange_element = False
-	current_direction = "RIGHT"
 	move_x = 300
 	move_y = 300
 	body = []
