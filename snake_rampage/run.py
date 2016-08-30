@@ -1,5 +1,6 @@
-import sys, pygame
+import sys, pygame, random
 from lib.Snake import Snake
+from lib.Prey import Prey
 
 pygame.init()
 
@@ -30,6 +31,7 @@ current_dir = "RIGHT"
 
 clock = pygame.time.Clock()
 
+is_alive = False
 while not gameExit:
 
 	for event in pygame.event.get():
@@ -88,9 +90,27 @@ while not gameExit:
 	pygame.draw.rect(gameDisplay, red, [0, 0, 800, 10])
 	pygame.draw.rect(gameDisplay, red, [790, 0, 10, 600])
 	pygame.draw.rect(gameDisplay, red, [0, 590, 800, 10])
+	
+	if is_alive == False:
+		print("True")
+		size_x_p = random.randint(6, 10)
+		size_y_p = size_x_p
+
+		pos_x_p = random.randint(100, 200)
+		pos_y_p = random.randint(100, 200)
+
+		color_p = (random.randint(100, 220), random.randint(100, 220), random.randint(100, 220))
+
+		is_alive = True
+	else:
+		pass
+		#draw prey - testing
+	print(color_p, pos_y_p, pos_x_p, size_y_p, size_x_p, is_alive)
+	prey = Prey(gameDisplay, color_p, pos_x_p, pos_y_p, size_x_p, size_y_p, is_alive)
 	pygame.display.update()
 
 	clock.tick(60)
+
 
 pygame.quit()
 quit()
