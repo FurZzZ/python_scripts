@@ -29,10 +29,23 @@ gameExit = False
 
 current_dir = "RIGHT"
 
+points = 0
+font = pygame.font.SysFont('monospace', 20)
+surfacefont = font.render(str(points), True, black, red)
+surfacer = surfacefont.get_rect()
+surfacer.center=(750,20)
 clock = pygame.time.Clock()
 
 is_alive = False
 while not gameExit:
+	font = pygame.font.SysFont('monospace', 20)
+	surfacefont = font.render(str(points), True, black, red)
+	surfacer = surfacefont.get_rect()
+	if points >= 10:
+		surfacer.center=(780,20)
+	else:
+		surfacer.center=(790, 20)
+
 	for event in pygame.event.get():
 
 		#exit game if esc pressed
@@ -90,22 +103,29 @@ while not gameExit:
 	pygame.draw.rect(gameDisplay, red, [790, 0, 10, 600])
 	pygame.draw.rect(gameDisplay, red, [0, 590, 800, 10])
 	
+	gameDisplay.blit(surfacefont,surfacer)
 	if is_alive == False:
-		size_x_p = random.randint(6, 10)
+		size_x_p = random.randint(6, 15)
 		size_y_p = size_x_p
 
-		pos_x_p = random.randint(100, 200)
-		pos_y_p = random.randint(100, 200)
+		pos_x_p = random.randint(100, 700)
+		pos_y_p = random.randint(100, 500)
 
 		color_p = (random.randint(100, 220), random.randint(100, 220), random.randint(100, 220))
 		is_alive = True
 	else:
 		if snake.eat(gameDisplay, pos_x, pos_y, pos_x_p, pos_y_p) == True:
+			if size_x_p <= 7:
+				points += 1
+			elif size_x_p > 7 and size_x_p <= 10:
+				points += 5
+			elif size_x_p > 10 and size_x_p <= 15:
+				points += 10
 			print("PREY EATEN!")
 			is_alive = False
 
 		#draw prey - testing
-	print(color_p, pos_y_p, pos_x_p, size_x_p, size_y_p, pos_x, pos_y, is_alive, current_dir)
+	print(color_p, pos_y_p, pos_x_p, size_x_p, size_y_p, pos_x, pos_y, is_alive, current_dir, points)
 	if is_alive == False:
 		prey = Prey(gameDisplay, color_p, pos_x_p, pos_y_p, size_x_p, size_y_p, is_alive)
 
