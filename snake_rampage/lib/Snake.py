@@ -28,6 +28,14 @@ class Snake(object):
 		pygame.draw.rect(window, color, [x-50, y-10, 100, self.size_y])
 
 
-	def eat(self, window, color, x, y):
-		pass
-
+	def eat(self, window, actual_x, actual_y, prey_x, prey_y):
+		print("Eat! cords: ", actual_x, actual_y, prey_x, prey_y)
+		#detect collision
+		collision = False
+		actual_y += 15
+		actual_x += 15
+		actual_x_p = actual_x - 30
+		actual_y_p = actual_y - 30
+		if (actual_x_p <= prey_x <= actual_x) and (actual_y_p <= prey_y <= actual_y):
+			collision = True
+		return collision

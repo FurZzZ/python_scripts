@@ -33,7 +33,6 @@ clock = pygame.time.Clock()
 
 is_alive = False
 while not gameExit:
-
 	for event in pygame.event.get():
 
 		#exit game if esc pressed
@@ -92,7 +91,6 @@ while not gameExit:
 	pygame.draw.rect(gameDisplay, red, [0, 590, 800, 10])
 	
 	if is_alive == False:
-		print("True")
 		size_x_p = random.randint(6, 10)
 		size_y_p = size_x_p
 
@@ -100,12 +98,20 @@ while not gameExit:
 		pos_y_p = random.randint(100, 200)
 
 		color_p = (random.randint(100, 220), random.randint(100, 220), random.randint(100, 220))
-
 		is_alive = True
 	else:
-		pass
+		if snake.eat(gameDisplay, pos_x, pos_y, pos_x_p, pos_y_p) == True:
+			print("PREY EATEN!")
+			is_alive = False
+
 		#draw prey - testing
-	print(color_p, pos_y_p, pos_x_p, size_y_p, size_x_p, is_alive)
+	print(color_p, pos_y_p, pos_x_p, size_x_p, size_y_p, pos_x, pos_y, is_alive, current_dir)
+	if is_alive == False:
+		prey = Prey(gameDisplay, color_p, pos_x_p, pos_y_p, size_x_p, size_y_p, is_alive)
+
+	if snake.eat(gameDisplay, pos_x, pos_y, pos_x_p, pos_y_p) == True:
+		is_alive = False
+
 	prey = Prey(gameDisplay, color_p, pos_x_p, pos_y_p, size_x_p, size_y_p, is_alive)
 	pygame.display.update()
 
